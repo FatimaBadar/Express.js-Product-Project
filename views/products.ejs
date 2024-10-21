@@ -1,0 +1,52 @@
+<html>
+  <head> 
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+  </head>
+  <body>
+    <h1>Product page</h1>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Select Rating</th>
+      </tr>
+      <% if(ProductData.length>0){ %> <% ProductData.forEach( (product) => { %>
+      <tr key="<% product.id %>">
+        <td><%=product.id%></td>
+        <td><%=product.name%></td>
+        <td>
+          <form action="/SubmitRating" method="post">
+            <select name="rating" id="rating">
+                <option value="NULL" <%= product.rating == 'NULL' ? "selected": ""%>> - </option>
+              <option value="1" <%= product.rating == 1 ? "selected": ""%>>1 - Poor</option>
+              <option value="2" <%= product.rating == 2 ? "selected": ""%>>2 - Fair</option>
+              <option value="3" <%= product.rating == 3 ? "selected": ""%>>3 - Good</option>
+              <option value="4" <%= product.rating == 4 ? "selected": ""%>>4 - Very Good</option>
+              <option value="5" <%= product.rating == 5 ? "selected": ""%>>5 - Excellent</option>
+            </select>
+            <!-- //to send along with form  -->
+            <input type="hidden" name="productId" value="<%= product.id %>">
+            <button type="submit">Submit Rating</button>
+          </form>
+        </td>
+        <%} )} %>
+      </tr>
+    </table>
+  </body>
+</html>
